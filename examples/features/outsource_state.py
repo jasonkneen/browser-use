@@ -15,11 +15,11 @@ from dotenv import load_dotenv
 load_dotenv()
 
 import anyio
-from langchain_openai import ChatOpenAI
 
 from browser_use import Agent
 from browser_use.agent.views import AgentState
 from browser_use.browser import BrowserProfile, BrowserSession
+from browser_use.llm import ChatOpenAI
 
 
 async def main():
@@ -35,10 +35,10 @@ async def main():
 	for i in range(10):
 		agent = Agent(
 			task=task,
-			llm=ChatOpenAI(model='gpt-4o'),
+			llm=ChatOpenAI(model='gpt-4.1'),
 			browser_session=browser_session,
 			injected_agent_state=agent_state,
-			page_extraction_llm=ChatOpenAI(model='gpt-4o-mini'),
+			page_extraction_llm=ChatOpenAI(model='gpt-4.1-mini'),
 		)
 
 		done, valid = await agent.take_step()

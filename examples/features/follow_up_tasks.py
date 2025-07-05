@@ -8,14 +8,13 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-from langchain_openai import ChatOpenAI
-
 from browser_use import Agent, Controller
 from browser_use.browser import BrowserProfile, BrowserSession
+from browser_use.llm import ChatOpenAI
 
 # Initialize the model
 llm = ChatOpenAI(
-	model='gpt-4o',
+	model='gpt-4.1',
 	temperature=0.0,
 )
 # Get your chrome path

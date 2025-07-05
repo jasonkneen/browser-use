@@ -8,12 +8,12 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-from langchain_openai import ChatOpenAI
 from pydantic import BaseModel
 
 from browser_use import Agent, Controller
 from browser_use.agent.views import ActionResult
 from browser_use.browser import BrowserProfile, BrowserSession
+from browser_use.llm import ChatOpenAI
 
 
 class HoverAction(BaseModel):
@@ -74,7 +74,7 @@ async def hover_element(params: HoverAction, browser_session: BrowserSession):
 async def main():
 	task = 'Open https://testpages.eviltester.com/styled/csspseudo/css-hover.html and hover the element with the css selector #hoverdivpara, then click on "Can you click me?"'
 	# task = 'Open https://testpages.eviltester.com/styled/csspseudo/css-hover.html and hover the element with the xpath //*[@id="hoverdivpara"], then click on "Can you click me?"'
-	model = ChatOpenAI(model='gpt-4o')
+	model = ChatOpenAI(model='gpt-4.1')
 	browser_session = BrowserSession(browser_profile=browser_profile)
 	await browser_session.start()
 	agent = Agent(

@@ -14,10 +14,10 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-from langchain_openai import ChatOpenAI
 from pydantic import BaseModel
 
 from browser_use import ActionResult, Agent, Controller
+from browser_use.llm import ChatOpenAI
 
 controller = Controller()
 
@@ -39,7 +39,7 @@ async def done(params: DoneResult):
 
 async def main():
 	task = 'Go to hackernews hn and give me the top 1 post'
-	model = ChatOpenAI(model='gpt-4o')
+	model = ChatOpenAI(model='gpt-4.1')
 	agent = Agent(task=task, llm=model, controller=controller, validate_output=True)
 	# NOTE: this should fail to demonstrate the validator
 	await agent.run(max_steps=5)

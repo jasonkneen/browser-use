@@ -9,10 +9,10 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-import pyotp
-from langchain_openai import ChatOpenAI
+import pyotp  # type: ignore
 
 from browser_use import ActionResult, Agent, Controller
+from browser_use.llm import ChatOpenAI
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -56,7 +56,7 @@ async def main():
 	You are completely FORBIDDEN to use any other method to get the 2FA code.
 	"""
 
-	model = ChatOpenAI(model='gpt-4o')
+	model = ChatOpenAI(model='gpt-4.1')
 	agent = Agent(task=task, llm=model, controller=controller)
 
 	result = await agent.run()

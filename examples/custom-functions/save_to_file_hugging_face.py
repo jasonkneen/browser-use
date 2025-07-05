@@ -8,11 +8,11 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-from langchain_openai import ChatOpenAI
 from pydantic import BaseModel
 
 from browser_use.agent.service import Agent
 from browser_use.controller.service import Controller
+from browser_use.llm import ChatOpenAI
 
 # Initialize controller first
 controller = Controller()
@@ -40,7 +40,7 @@ def save_models(params: Models):
 async def main():
 	task = 'Look up models with a license of cc-by-sa-4.0 and sort by most likes on Hugging face, save top 5 to file.'
 
-	model = ChatOpenAI(model='gpt-4o')
+	model = ChatOpenAI(model='gpt-4.1')
 	agent = Agent(task=task, llm=model, controller=controller)
 
 	await agent.run()

@@ -9,10 +9,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from aiohttp import web  # make sure to install aiohttp: pip install aiohttp
-from langchain_openai import ChatOpenAI
 
-# from langchain_google_genai import ChatGoogleGenerativeAI
 from browser_use import Agent, Controller
+from browser_use.llm import ChatOpenAI
 
 # Define a simple HTML page
 HTML_CONTENT = """
@@ -182,7 +181,7 @@ async def main():
 	select_task = 'Open http://localhost:8000/, choose the car BMW'
 	button_task = 'Open http://localhost:8000/, click on the button'
 
-	llm = ChatOpenAI(model='gpt-4o')
+	llm = ChatOpenAI(model='gpt-4.1')
 	# llm = ChatGoogleGenerativeAI(
 	#     model="gemini-2.0-flash-lite",
 	# )

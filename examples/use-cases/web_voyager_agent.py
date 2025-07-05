@@ -11,23 +11,19 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-from langchain_openai import AzureChatOpenAI, ChatOpenAI
-from pydantic import SecretStr
 
 from browser_use.agent.service import Agent
 from browser_use.browser import BrowserProfile, BrowserSession
+from browser_use.llm import ChatAzureOpenAI, ChatOpenAI
 
 # Set LLM based on defined environment variables
 if os.getenv('OPENAI_API_KEY'):
 	llm = ChatOpenAI(
-		model='gpt-4o',
+		model='gpt-4.1',
 	)
 elif os.getenv('AZURE_OPENAI_KEY') and os.getenv('AZURE_OPENAI_ENDPOINT'):
-	llm = AzureChatOpenAI(
-		model='gpt-4o',
-		api_version='2024-10-21',
-		azure_endpoint=os.getenv('AZURE_OPENAI_ENDPOINT', ''),
-		api_key=SecretStr(os.getenv('AZURE_OPENAI_KEY', '')),
+	llm = ChatAzureOpenAI(
+		model='gpt-4.1',
 	)
 else:
 	raise ValueError('No LLM found. Please set OPENAI_API_KEY or AZURE_OPENAI_KEY and AZURE_OPENAI_ENDPOINT.')

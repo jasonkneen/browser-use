@@ -9,12 +9,12 @@ from dotenv import load_dotenv
 load_dotenv()
 
 import pyperclip
-from langchain_openai import ChatOpenAI
-from playwright.async_api import Page
 
 from browser_use import Agent, Controller
 from browser_use.agent.views import ActionResult
 from browser_use.browser import BrowserProfile, BrowserSession
+from browser_use.browser.types import Page
+from browser_use.llm import ChatOpenAI
 
 browser_profile = BrowserProfile(
 	headless=False,
@@ -39,7 +39,7 @@ async def paste_from_clipboard(page: Page):
 
 async def main():
 	task = 'Copy the text "Hello, world!" to the clipboard, then go to google.com and paste the text'
-	model = ChatOpenAI(model='gpt-4o')
+	model = ChatOpenAI(model='gpt-4.1')
 	browser_session = BrowserSession(browser_profile=browser_profile)
 	await browser_session.start()
 	agent = Agent(

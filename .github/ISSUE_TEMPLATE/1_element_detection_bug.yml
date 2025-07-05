@@ -20,7 +20,6 @@ body:
         > - 🆕 [`beta`](https://docs.browser-use.com/development/local-setup):   `uv pip install --upgrade git+https://github.com/browser-use/browser-use.git@main`
         > - 📦 [`stable`](https://pypi.org/project/browser-use/#history): `uv pip install --upgrade browser-use`
 
-
   - type: input
     id: version
     attributes:
@@ -45,6 +44,8 @@ body:
         - gpt-4.1
         - gpt-4.1-mini
         - gpt-4.1-nano
+        - o4-mini
+        - o3
         - claude-3.7-sonnet
         - claude-3.5-sonnet
         - gemini-2.6-flash-preview
@@ -111,11 +112,11 @@ body:
         from dotenv import load_dotenv
         load_dotenv()  # tip: always load_dotenv() before other imports
         from browser_use import Agent, BrowserSession, Controller
-        from langchain_openai import ChatOpenAI
+        from browser_use.llm import ChatOpenAI
 
         agent = Agent(
             task='...',
-            llm=ChatOpenAI(model="gpt-4o"),
+            llm=ChatOpenAI(model="gpt-4.1"),
             browser_session=BrowserSession(headless=False),
         )
         ...

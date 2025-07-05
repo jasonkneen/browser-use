@@ -1,4 +1,6 @@
-from pydantic import BaseModel, ConfigDict, Field, model_validator
+from typing import Generic, TypeVar
+
+from pydantic import BaseModel, ConfigDict, Field
 
 
 # Action Input Models
@@ -8,30 +10,34 @@ class SearchGoogleAction(BaseModel):
 
 class GoToUrlAction(BaseModel):
 	url: str
+	new_tab: bool  # True to open in new tab, False to navigate in current tab
 
 
 class ClickElementAction(BaseModel):
 	index: int
-	xpath: str | None = None
 
 
 class InputTextAction(BaseModel):
 	index: int
 	text: str
-	xpath: str | None = None
 
 
 class DoneAction(BaseModel):
 	text: str
 	success: bool
+	files_to_display: list[str] | None = []
+
+
+T = TypeVar('T', bound=BaseModel)
+
+
+class StructuredOutputAction(BaseModel, Generic[T]):
+	success: bool = True
+	data: T
 
 
 class SwitchTabAction(BaseModel):
 	page_id: int
-
-
-class OpenTabAction(BaseModel):
-	url: str
 
 
 class CloseTabAction(BaseModel):
@@ -39,11 +45,16 @@ class CloseTabAction(BaseModel):
 
 
 class ScrollAction(BaseModel):
-	amount: int | None = None  # The number of pixels to scroll. If None, scroll down/up one page
+	down: bool  # True to scroll down, False to scroll up
 
 
 class SendKeysAction(BaseModel):
 	keys: str
+
+
+class UploadFileAction(BaseModel):
+	index: int
+	path: str
 
 
 class ExtractPageContentAction(BaseModel):
@@ -56,12 +67,8 @@ class NoParamsAction(BaseModel):
 	and discards it, so the final parsed model is empty.
 	"""
 
-	model_config = ConfigDict(extra='allow')
-
-	@model_validator(mode='before')
-	def ignore_all_inputs(cls, values):
-		# No matter what the user sends, discard it and return empty.
-		return {}
+	model_config = ConfigDict(extra='ignore')
+	# No fields defined - all inputs are ignored automatically
 
 
 class Position(BaseModel):

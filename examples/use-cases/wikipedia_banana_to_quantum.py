@@ -8,14 +8,13 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-from langchain_openai import ChatOpenAI
-
 from browser_use import Agent
 from browser_use.browser import BrowserProfile, BrowserSession
+from browser_use.llm import ChatOpenAI
 
 # video https://preview.screen.studio/share/vuq91Ej8
 llm = ChatOpenAI(
-	model='gpt-4o',
+	model='gpt-4.1',
 	temperature=0.0,
 )
 task = 'go to https://en.wikipedia.org/wiki/Banana and click on buttons on the wikipedia page to go as fast as possible from banna to Quantum mechanics'

@@ -8,13 +8,13 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-from amazoncaptcha import AmazonCaptcha
-from langchain_openai import ChatOpenAI
+from amazoncaptcha import AmazonCaptcha  # type: ignore
 
 from browser_use import ActionResult
 from browser_use.agent.service import Agent
 from browser_use.browser import BrowserConfig, BrowserSession
 from browser_use.controller.service import Controller
+from browser_use.llm import ChatOpenAI
 
 browser_profile = BrowserConfig(headless=False)
 
@@ -71,7 +71,7 @@ async def solve_amazon_captcha(browser_session: BrowserSession):
 async def main():
 	task = 'Go to https://www.amazon.com/errors/validateCaptcha and solve the captcha using the solve_amazon_captcha tool'
 
-	model = ChatOpenAI(model='gpt-4o')
+	model = ChatOpenAI(model='gpt-4.1')
 	browser_session = BrowserSession(browser_profile=browser_profile)
 	await browser_session.start()
 	agent = Agent(task=task, llm=model, controller=controller, browser_session=browser_session)

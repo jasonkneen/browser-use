@@ -14,10 +14,9 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-from langchain_openai import ChatOpenAI
-
 from browser_use import Agent, Controller
 from browser_use.browser import BrowserProfile, BrowserSession
+from browser_use.llm import ChatOpenAI
 
 if not os.getenv('OPENAI_API_KEY'):
 	raise ValueError('OPENAI_API_KEY is not set. Please add it to your environment variables.')
@@ -33,7 +32,7 @@ controller = Controller()
 async def main():
 	agent = Agent(
 		task='Click "Go cross-site (simple page)" button on https://csreis.github.io/tests/cross-site-iframe.html then tell me the text within',
-		llm=ChatOpenAI(model='gpt-4o', temperature=0.0),
+		llm=ChatOpenAI(model='gpt-4.1', temperature=0.0),
 		controller=controller,
 		browser_session=browser_session,
 	)

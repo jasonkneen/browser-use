@@ -28,6 +28,7 @@ dist/
 *.json
 *.jsonl
 *.log
+*.bak
 
 # Secrets and sensitive files
 secrets.env
@@ -45,3 +46,7 @@ CLAUDE.local.md
 uv.lock
 temp
 tmp
+
+# Google API credentials
+credentials.json
+token.json
